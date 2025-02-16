@@ -1,8 +1,10 @@
 package com.sip_calculator.Sip_Calculator.Dto;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.List;
-
+@Data
 public class YearlyInvestment {
 
     /*

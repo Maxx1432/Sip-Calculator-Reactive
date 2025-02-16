@@ -27,6 +27,12 @@ repositories {
 }
 
 dependencies {
+	//aspect
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+	//for MongoDb
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
 	// Spring Boot WebFlux for Reactive Programming
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
@@ -56,6 +62,12 @@ dependencies {
 	//CSV
 	implementation("com.opencsv:opencsv:5.7.1") // Add OpenCSV
 	implementation("org.jetbrains.kotlin:kotlin-reflect") // For Kotlin reflection
+
+	//For AOP
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+	//Spring Dependency
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
 tasks.named('test') {

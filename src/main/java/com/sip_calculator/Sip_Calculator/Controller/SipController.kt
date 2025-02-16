@@ -1,10 +1,14 @@
-package com.sip_calculator.Sip_Calculator.Controller;
+package com.sip_calculator.Sip_Calculator.Controller
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import com.sip_calculator.Sip_Calculator.SipCalculatorApplication
+import com.sip_calculator.Sip_Calculator.Util.FileUtils
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.RestController
 
-@RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-public class SipController {
+@RestController("/sip")
+@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+class SipController(private val fileUtils : FileUtils,
+    private val sipCalculator) {
+
 
 }
