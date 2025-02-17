@@ -34,12 +34,12 @@ public class FileUtils {
     @Autowired
     private YearlyInvestmentMapper yearlyInvestMentMapper;
 
-    public Mono<Object> setStorageLocation(){
-        return Mono.fromRunnable(()->{
-            try{
+    public Mono<Void> setStorageLocation() {
+        return Mono.fromRunnable(() -> {
+            try {
                 String userDir = System.getProperty("user.dir");
                 String directory = userDir + File.separator + fileFolder + File.separator;
-                if(!Files.exists(Paths.get(directory))){
+                if (!Files.exists(Paths.get(directory))) {
                     createDirectory(Paths.get(directory));
                 }
                 this.downloadDirectory = directory;
@@ -47,7 +47,7 @@ public class FileUtils {
                 log.error("Error creating directory: {}", e.getMessage());
                 throw new RuntimeException("Error setting storage location", e);
             }
-        }).subscribeOn(Schedulers.boundedElastic());
+        }).then(); // 👈 Ensures the Mono returns Void
     }
 
     private void createDirectory(Path path) throws IOException {

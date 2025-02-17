@@ -12,12 +12,10 @@ import java.io.IOException
 class DownloadConfig @Autowired constructor(private val fileUtils: FileUtils) {
     private val log : Logger = LoggerFactory.getLogger(DownloadConfig::class.java)
 
-    fun createDownloadDirectory(){
-        try{
-            fileUtils.setStorageLocation()
-        } catch (e: IOException){
-            println(e.message)
-            log.error("Exception while creating directory {}", e.message)
-        }
+    fun createDownloadDirectory() {
+        fileUtils.setStorageLocation()
+            .doOnError { e -> log.error("Exception while creating directory {}", e.message) }
+            .subscribe()
     }
+
 }

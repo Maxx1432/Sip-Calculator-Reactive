@@ -1,0 +1,54 @@
+# Use Node.js for building the frontend
+FROM node:18.20.3-slim AS node-stage
+
+ARG NAME
+
+WORKDIR /app
+
+# Copy the frontend source code
+COPY src src
+COPY build.gradle build.gradle
+COPY settings.gradle settings.gradle
+COPY gradle gradle
+COPY gradlew .
+
+# Change to frontend directory and build Angular app
+WORKDIR Users/mahendra.chawla/IdeaProjects/sip-calculator-front-end/src/main/resources/angular-frontend
+RUN npm install && npx ng build --configuration=$NAME && rm -rf node_modules
+
+# Use Gradle for backend build
+FROM gradle:8.12.1-jdk17 AS build-stage
+
+WORKDIR /app
+
+# Copy Gradle wrapper and dependency files first (for caching)
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+
+# Run Gradle dependencies separately for better caching
+RUN ./gradlew dependencies
+
+# Copy the full source code
+COPY . .
+
+# Build the JAR
+RUN ./gradlew clean build -x test && rm -rf ~/.gradle
+
+# Use lightweight runtime image for running the built JAR
+FROM gcr.io/distroless/java17
+
+WORKDIR /app
+
+# Set image maintainers
+LABEL maintainer="Divyansh Dheer, Jyotirmay Pande"
+
+# Copy the built JAR file from the previous stage
+COPY --from=build-stage /app/build/libs/*.jar SIP-calculator-0.0.1-SNAPSHOT.jar
+
+# Expose port 8080
+EXPOSE 8080
+
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "SIP-calculator-0.0.1-SNAPSHOT.jar"]

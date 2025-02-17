@@ -3,7 +3,8 @@ plugins {
 	id 'org.springframework.boot' version '3.3.8'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id("org.jetbrains.kotlin.jvm") version "1.9.0"
-	id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
+	id("org.jetbrains.kotlin.plugin.spring") version "1.9.22"
+
 	id("org.jetbrains.kotlin.plugin.jpa") version "1.9.0"
 }
 
@@ -31,7 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
 	//for MongoDb
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
 	// Spring Boot WebFlux for Reactive Programming
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -42,11 +43,11 @@ dependencies {
 	// Kotlin Support
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-spring")
+//	implementation("org.jetbrains.kotlin:kotlin-spring")
 
 	// Reactive Database (R2DBC)
-	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-	runtimeOnly("io.r2dbc:r2dbc-h2")
+//	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+//	runtimeOnly("io.r2dbc:r2dbc-h2")
 
 	// Lombok for Java (Optional)
 	compileOnly("org.projectlombok:lombok")
@@ -58,6 +59,7 @@ dependencies {
 
 	//For Kotlin
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
 	//CSV
 	implementation("com.opencsv:opencsv:5.7.1") // Add OpenCSV
@@ -68,8 +70,10 @@ dependencies {
 
 	//Spring Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}

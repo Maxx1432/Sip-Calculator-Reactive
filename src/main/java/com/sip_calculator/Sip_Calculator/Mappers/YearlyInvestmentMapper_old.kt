@@ -7,7 +7,7 @@ import org.mapstruct.Mapping
 import org.mapstruct.NullValuePropertyMappingStrategy
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
-interface YearlyInvestmentMapper {
+interface YearlyInvestmentMapper_old {
     @Mapping(target = "directLumpSumInvestment", source = "source.directLumpSumInvestment", defaultValue = "0")
     @Mapping(target = "directLumpSumAmount", source = "source.directLumpSumAmount", defaultValue = "0.00")
     @Mapping(target = "steppedUpSipValue", source = "source.steppedUpSipValue", defaultValue = "0.00")
